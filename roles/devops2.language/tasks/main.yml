@@ -1,0 +1,7 @@
+---
+- name: change language to spanish
+  lineinfile:
+    dest: /etc/locale.conf
+    regexp: '^LANG='
+    line: 'LANG=es.ES.UTF-8'
+

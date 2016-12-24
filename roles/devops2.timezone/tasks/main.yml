@@ -1,0 +1,5 @@
+---
+- name: change timezone to Madrid
+  timezone:
+    name: "{{ tz }}"
+

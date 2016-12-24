@@ -1,0 +1,77 @@
+---
+- hosts: jjEC2
+  remote_user: centos
+  become: true
+
+  vars:
+#    tz: "Europe/Madrid"
+#    jdkversion: "java-1.8.0-openjdk"
+#    url: "http://apache.rediris.es/tomcat/tomcat-8/v8.5.8/bin/apache-tomcat-8.5.8.tar.gz"
+#    simbol_link_source: "/opt/apache-tomcat-8.5.8/"
+#    web_service: "tomcat"
+#    search: "-Djava.protocol.handler.pkgs=org.apache.catalina.webresources"
+#    tomcat_memory_min: "512"
+#    tomcat_memory_max: "1024"
+ 
+  vars_files:
+    - /home/josemartinezgonzalez/lab_ansible/vars/back_vars_{{ ENV }}.yml
+
+  roles:
+#    - /home/josemartinezgonzalez/lab_ansible/roles/devops2.timezone
+#    - /home/josemartinezgonzalez/lab_ansible/roles/devops2.language
+    - josejavier.tomcat
+
+  tasks:
+#    - name: change language to spanish
+#      lineinfile:
+#        dest: /etc/locale.conf
+#        regexp: '^LANG='
+#        line: 'LANG=es.ES.UTF-8'
+
+#    - name: change timezone to Madrid
+#      timezone:
+#        name: "{{ tz }}"
+
+    - name: install openJDK
+      yum:
+        name: "{{ jdkversion }}"
+        state: installed
+      
+#    - name: download and install Tomcat
+#      unarchive:
+#        src: "{{ url }}"
+#        dest: /opt
+#        remote_src: yes
+#        creates: "{{ simbol_link_source }}"
+#    - name: crear enlace simbolico tomcat
+#      file:
+#         src: "{{ simbol_link_source }}"
+#         dest: /opt/tomcat
+#         state: link
+
+    - name: descargar app tomcat
+      get_url:
+        url: https://tomcat.apache.org/tomcat-8.0-doc/appdev/sample/sample.war
+        dest: /opt/tomcat/webapps
+
+#    - name: modificar fichero catalina
+#      lineinfile:
+#        dest: /opt/tomcat/bin/catalina.sh
+#        regexp: '^(.*){{ search }}(.*)$'
+#        line: "JAVA_OPTS=\"$JAVA_OPTS -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Xms{{ tomcat_memory_min }}m -Xmx{{ tomcat_memory_max }}m\""
+
+
+
+#    - name: añadir template
+#      template: 
+#        src: /home/josemartinezgonzalez/Descargas/tomcat
+#        dest: /etc/systemd/system/tomcat.service
+#        mode: 0755
+
+
+#    - name: start service
+#      systemd:
+#        name: "{{ web_service }}"
+#        state: started
+#        enabled: true
+

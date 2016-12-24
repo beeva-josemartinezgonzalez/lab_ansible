@@ -1,0 +1,27 @@
+---
+- hosts: jjEC2
+  remote_user: centos
+  become: true
+
+  vars:
+    language: "es_ES.UTF-8"
+
+  roles:
+    - /home/josemartinezgonzalez/lab_ansible/roles/devops2.timezone
+    - /home/josemartinezgonzalez/lab_ansible/roles/devops2.language
+
+  tasks:
+#    - name: change language to spanish
+#      lineinfile:
+#        dest: /etc/locale.conf
+#        regexp: '^LANG='
+#        line: "LANG={{ language }}"
+
+#    - name: change timezone to Madrid
+#      timezone:
+#        name: Europe/Madrid
+
+    - name: update all packages
+      yum:
+        name: '*'
+        state: latest

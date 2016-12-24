@@ -1,0 +1,6 @@
+---   
+   tz: "Europe/Madrid"
+   jdkversion: "java-1.8.0-openjdk"
+   url: "https://nodejs.org/dist/v6.9.2/node-v6.9.2-linux-x64.tar.xz"
+   simbol_link_source: "/opt/node-v6.9.2-linux-x64/"
+

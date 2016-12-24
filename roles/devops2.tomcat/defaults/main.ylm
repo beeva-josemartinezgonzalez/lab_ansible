@@ -1,0 +1,8 @@
+---
+   url: "http://apache.rediris.es/tomcat/tomcat-8/v8.5.8/bin/apache-tomcat-8.5.8.tar.gz"
+
+   simbol_link_source: "/opt/apache-tomcat-8.5.8/"
+   search: "-Djava.protocol.handler.pkgs=org.apache.catalina.webresources"
+   tomcat_memory_min: "512"
+   tomcat_memory_max: "1024"
+   web_service: "tomcat"

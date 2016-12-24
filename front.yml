@@ -1,0 +1,56 @@
+---
+- hosts: jjEC2
+  remote_user: centos
+  become: true
+ 
+  vars:
+#    tz: "Europe/Madrid"
+#    jdkversion: "java-1.8.0-openjdk"
+#    url: "https://nodejs.org/dist/v6.9.2/node-v6.9.2-linux-x64.tar.xz"
+#    simbol_link_source: "/opt/node-v6.9.2-linux-x64/"
+
+  vars_files:
+    - /home/josemartinezgonzalez/lab_ansible/vars/front_vars.yml
+  
+  roles:
+    - /home/josemartinezgonzalez/lab_ansible/roles/devops2.timezone
+    - /home/josemartinezgonzalez/lab_ansible/roles/devops2.language
+ 
+  tasks:
+#    - name: change language to spanish
+#      lineinfile:
+#        dest: /etc/locale.conf
+#        regexp: '^LANG='
+#        line: 'LANG=es.ES.UTF-8'
+
+#    - name: change timezone to Madrid
+#      timezone:
+#        name: "{{ tz }}"
+    
+    - name: install openJDK
+      yum:
+        name: "{{ jdkversion }}"
+        state: installed
+ 
+    - name: descargar y descomprimir  nodeJS
+      unarchive:
+        src: "{{ url }}"
+        dest: /opt
+        remote_src: yes
+        
+    - name: crear enlace simbolico
+      file:
+         src: "{{ simbol_link_source }}"
+         dest: /opt/node
+         state: link
+
+    - name: crear enlace simbolico para añadir el binario a todos usuarios
+      file:
+         src: /opt/node/bin/node
+         dest: /usr/bin/node
+         state: link
+
+    - name: crear usuario node
+      user:
+        name: node
+
